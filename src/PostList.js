@@ -9,17 +9,13 @@ export const PostList = (props) => {
         <List {...props} filters={<PostFilter />} >
             <Datagrid >
                 <TextField source="id" />
-                <ReferenceField label="Author" source="authorId" reference="users">
+                <ReferenceField label="Author" source="author.id" reference="users">
                     <TextField source="name" />
                 </ReferenceField>
                 <TextField source="title" />
-                <TextField source="categoryId" />
-                
-                <ReferenceManyField label="Test" reference="roles" target="roles">
-                <SingleFieldList>
-                    <ChipField source="authority" />
-                </SingleFieldList>
-            </ReferenceManyField>
+                <ReferenceField label="Category" source="categoryId" reference="categories">
+                    <TextField source="name" />
+                </ReferenceField>
             </Datagrid>
         </List>
     )
