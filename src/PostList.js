@@ -1,25 +1,40 @@
 // in src/posts.js
-import React from 'react';
+import React from "react";
 
-import { List, Edit, Create, Datagrid, TextField, DisabledInput, ReferenceManyField, ChipField, SingleFieldList, ReferenceField, ReferenceInput, SelectInput, SimpleForm, TextInput, Filter } from 'admin-on-rest';
+import {
+  List,
+  Edit,
+  Create,
+  Datagrid,
+  TextField,
+  DisabledInput,
+  ReferenceField,
+  ReferenceInput,
+  SelectInput,
+  SimpleForm,
+  TextInput,
+  Filter
+} from "admin-on-rest";
 
-
-export const PostList = (props) => {
-    return (
-        <List {...props} filters={<PostFilter />} >
-            <Datagrid >
-                <TextField source="id" />
-                <ReferenceField label="Author" source="author.id" reference="users">
-                    <TextField source="name" />
-                </ReferenceField>
-                <TextField source="title" />
-                <ReferenceField label="Category" source="categoryId" reference="categories">
-                    <TextField source="name" />
-                </ReferenceField>
-            </Datagrid>
-        </List>
-    )
-
+export const PostList = props => {
+  return (
+    <List {...props} filters={<PostFilter />}>
+      <Datagrid>
+        <TextField source="id" />
+        <ReferenceField label="Author" source="author.id" reference="users">
+          <TextField source="name" />
+        </ReferenceField>
+        <TextField source="title" />
+        <ReferenceField
+          label="Category"
+          source="categoryId"
+          reference="categories"
+        >
+          <TextField source="name" />
+        </ReferenceField>
+      </Datagrid>
+    </List>
+  );
 };
 
 // <TagsField label="tags" />
@@ -39,41 +54,39 @@ export const PostList = (props) => {
 //     )
 // }
 
-
 const PostTitle = ({ record }) => {
-    console.log(record)
-    return <span>Post {record ? `"${record.title}"` : ''}</span>;
+  console.log(record);
+  return <span>Post {record ? `"${record.title}"` : ""}</span>;
 };
 
-export const PostEdit = (props) => (
-    <Edit title={<PostTitle />} {...props}>
-        <SimpleForm>
-            <DisabledInput source="id" />
-            <ReferenceInput label="User" source="userId" reference="users">
-                <SelectInput optionText="name" />
-            </ReferenceInput>
-            <TextInput source="title" />
-        </SimpleForm>
-    </Edit>
+export const PostEdit = props => (
+  <Edit title={<PostTitle />} {...props}>
+    <SimpleForm>
+      <DisabledInput source="id" />
+      <ReferenceInput label="User" source="userId" reference="users">
+        <SelectInput optionText="name" />
+      </ReferenceInput>
+      <TextInput source="title" />
+    </SimpleForm>
+  </Edit>
 );
 
-export const PostCreate = (props) => (
-    <Create {...props}>
-        <SimpleForm>
-            <ReferenceInput label="User" source="userId" reference="users" allowEmpty>
-                <SelectInput optionText="name" />
-            </ReferenceInput>
-            <TextInput source="title" />
-            
-        </SimpleForm>
-    </Create>
+export const PostCreate = props => (
+  <Create {...props}>
+    <SimpleForm>
+      <ReferenceInput label="User" source="userId" reference="users" allowEmpty>
+        <SelectInput optionText="name" />
+      </ReferenceInput>
+      <TextInput source="title" />
+    </SimpleForm>
+  </Create>
 );
 
-const PostFilter = (props) => (
-    <Filter {...props}>
-        <TextInput label="Search" source="q" alwaysOn />
-        <ReferenceInput label="User" source="userId" reference="users" allowEmpty>
-            <SelectInput optionText="name" />
-        </ReferenceInput>
-    </Filter>
+const PostFilter = props => (
+  <Filter {...props}>
+    <TextInput label="Search" source="q" alwaysOn />
+    <ReferenceInput label="User" source="userId" reference="users" allowEmpty>
+      <SelectInput optionText="name" />
+    </ReferenceInput>
+  </Filter>
 );
